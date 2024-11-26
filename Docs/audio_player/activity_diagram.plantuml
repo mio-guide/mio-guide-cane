@@ -1,0 +1,44 @@
+@startuml Aktivitätsdiagramm
+
+start
+
+:receive notification;
+:parse state and data;
+
+switch (state)
+case (NONE_DETECTED)
+    :do nothing;
+case (LINE_DETECTED)
+    :play sound 1;
+case (CODE_CLOSE)
+    :play sound 2;
+case (CODE_BELOW)
+    :play sound 3;
+    if (is data null?) then (yes)
+    else (no)
+        :parse code and direction;
+        if (is code below 100?) then (yes)
+            :use code and direction as track name;
+        else (no)
+            :use code as track name;
+        endif
+        if (button pressed before timeout over?) then (yes)
+        else (no)
+            :play audio track;
+        endif
+    endif
+endswitch
+
+while (audio track playing?) is (yes)
+    if (button pressed?) then (yes)
+        :stop audio track;
+        :set timestamp;
+    else (no)
+    endif
+endwhile (no)
+
+:set ready bit;
+
+stop
+
+@enduml

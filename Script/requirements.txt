@@ -1,0 +1,9 @@
+urllib3==1.26.15
+openpyxl==3.1.2
+pandas==2.2.2
+tqdm==4.66.4
+beautifulsoup4==4.12.3
+markdown-it-py==3.0.0
+treepoem==3.24.0
+gTTS==2.5.1
+pydub==0.25.1

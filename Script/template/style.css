@@ -1,0 +1,33 @@
+body > div {
+  display:          flex;
+  flex-wrap:        wrap;
+  gap:              2.0cm 1.5cm;
+}
+
+body > div > div {
+  width:            max-content;
+}
+
+body > div > div > div {
+  padding:          1.0cm;
+  border-radius:    0.8cm;
+  border:           solid;
+}
+
+p {
+  font-family:      sans-serif;
+  text-align:       center;
+  border:           dotted;
+  padding:          0.25cm;
+  margin-top:       0.25cm;
+  margin-bottom:    0;
+}
+
+img {
+  height:           2.5cm;
+  width:            2.5cm;
+  padding:          0.25cm;
+  rotate:           45deg;
+  display:          block;
+  background-color: white;
+}

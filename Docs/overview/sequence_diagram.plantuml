@@ -1,0 +1,28 @@
+@startuml Sequenzdiagramm
+
+"Camera" <- "Audio Player": 1
+note left: ready
+"Camera" -> "Audio Player": [0, null]
+note right: NONE_DETECTED
+
+"Camera" <- "Audio Player": 1
+note left: ready
+"Camera" -> "Audio Player": [1, null]
+note right: LINE_DETECTED
+
+"Camera" <- "Audio Player": 1
+note left: ready
+"Camera" -> "Audio Player": [2, null]
+note right: CODE_CLOSE
+
+"Camera" <- "Audio Player": 1
+note left: ready
+"Camera" -> "Audio Player": [3, null]
+note right: CODE_BELOW
+
+"Camera" <- "Audio Player": 1
+note left: ready
+"Camera" -> "Audio Player": [3, ["100", 0]]
+note right: CODE_BELOW
+
+@enduml

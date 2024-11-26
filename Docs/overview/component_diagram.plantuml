@@ -1,0 +1,9 @@
+@startuml Komponentendiagramm
+
+skinparam componentStyle rectangle
+
+[Audio Player] <-> [Camera]: BLE
+note left of "Audio Player": Central (Client)
+note right of "Camera": Peripheral (Server)
+
+@enduml

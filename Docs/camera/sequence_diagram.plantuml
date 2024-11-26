@@ -1,0 +1,54 @@
+@startuml Sequenzdiagramm
+
+Main ++
+
+Main -> Sensor ++ : snapshot()
+Main <-- Sensor -- : img
+
+Main -> Main : find_lines(img)
+
+Main -> Main : find_markers(img)
+
+Main -> Main : code_below(lines, markers)
+
+Main -> Main : to_roi(markers)
+
+Main -> Main ++ : code_below_routine(img, roi)
+
+Main -> Main : find_code(img, roi)
+
+Main -> State ++ : update(state, [track, direction])
+
+State -> State ++ : notify()
+
+State -> Sender ++ : on_notify([state, [track, direction]])
+
+Sender -> Sender ++ : is_ready()
+Sender -> BLE ++ : gatts_read(rx)
+Sender <-- BLE -- : 1
+Sender --
+
+Sender -> Sender ++ : set_ready(false)
+Sender -> BLE ++ : gatts_write(rx, 0)
+Sender <-- BLE --
+Sender --
+
+Sender -> Sender ++ : send_data([state, [track, direction]])
+Sender -> BLE ++ : gatts_write(tx, bytes)
+Sender <-- BLE --
+Sender --
+
+Sender -> Sender ++ : send_notify()
+Sender -> BLE ++ : gatts_notify(conn_handle, tx)
+Sender <-- BLE --
+Sender --
+
+State <-- Sender --
+
+State --
+
+Main <-- State --
+
+Main --
+
+@enduml

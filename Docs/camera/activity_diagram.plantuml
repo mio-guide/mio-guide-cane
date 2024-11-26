@@ -1,0 +1,33 @@
+@startuml Aktivitätsdiagramm
+
+start
+:take snapshot;
+:find lines;
+:find markers;
+if (all markers present?) then (yes)
+  :find code;
+  if (code found?) then (yes)
+    :set new data;
+  else (no)
+    :set old data;
+  endif
+  :set state CODE_BELOW;
+else (no)
+  if (any markers or signal line present?) then (yes)
+    :set state CODE_CLOSE;
+  else (no)
+    if (guide line present?) then (yes)
+      :set state LINE_DETECTED;
+    else (no)
+      :set state NONE_DETECTED;
+    endif
+  endif
+  :clear data;
+endif
+if (client ready?) then (yes)
+  :send notification;
+else (no)
+endif
+stop
+
+@enduml

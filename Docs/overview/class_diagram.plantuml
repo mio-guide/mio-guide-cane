@@ -1,0 +1,65 @@
+@startuml Klassendiagramm
+
+package "Camera" <<Rectangle>> {
+
+  class State {
+    state
+    data
+    listeners
+    --
+    subscribe()
+    update()
+    notify()
+  }
+
+  class Sender {
+    ble
+    rx
+    tx
+    ...
+    --
+    send_data()
+    send_notify()
+    set_ready()
+    is_ready()
+    on_notify()
+    ...
+  }
+
+  class BLE {
+    ...
+    --
+    gatts_read()
+    gatts_write()
+    gatts_notify()
+    ...
+  }
+
+  State -> Sender
+
+  Sender -> BLE
+}
+
+package "Audio Player" <<Rectangle>> {
+
+  class BLEClientUart {
+    ...
+    --
+    setRxCallback()
+    readStringUntil()
+    write()
+    ...
+  }
+
+  class Adafruit_VS1053_FilePlayer {
+    playingMusic
+    ...
+    --
+    stopPlaying()
+    playFullFile()
+    startPlayingFile()
+    ...
+  }
+}
+
+@enduml

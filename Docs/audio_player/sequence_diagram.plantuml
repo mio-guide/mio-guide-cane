@@ -1,0 +1,56 @@
+@startuml Sequenzdiagramm
+
+Arduino ++
+
+BLEClientUart ++
+
+BLEClientUart -> Main ++ : rxCallback(client)
+
+Main -> BLEClientUart ++ : readStringUntil('\\r')
+Main <-- BLEClientUart --: message
+
+Main -> Main: deserializeJson(json, message)
+
+Main -> Main ++ : onCodeBelow()
+
+Main -> Adafruit_VS1053_FilePlayer ++ : playFullFile(sound)
+Main <-- Adafruit_VS1053_FilePlayer --
+
+Main -> Main : millis()
+
+Main -> Adafruit_VS1053_FilePlayer ++ : startPlayingFile(track)
+Main <-- Adafruit_VS1053_FilePlayer --
+
+Main --
+
+BLEClientUart <-- Main --
+
+Arduino -> Main ++ : loop()
+
+Main -> Adafruit_VS1053_FilePlayer ++ : playingMusic
+Main <-- Adafruit_VS1053_FilePlayer -- : true
+
+Main -> Main : digitalRead(pin)
+
+Main -> Adafruit_VS1053_FilePlayer ++ : stopPlaying()
+Main <-- Adafruit_VS1053_FilePlayer --
+
+Main -> Main : millis()
+
+Arduino <-- Main --
+
+Arduino -> Main ++ : loop()
+
+Main -> Adafruit_VS1053_FilePlayer ++ : playingMusic
+Main <-- Adafruit_VS1053_FilePlayer -- : false
+
+Main -> BLEClientUart ++ : write(1)
+Main <-- BLEClientUart --
+
+Arduino <-- Main --
+
+BLEClientUart --
+
+Arduino --
+
+@enduml
